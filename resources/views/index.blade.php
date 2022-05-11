@@ -45,7 +45,11 @@
                                     {{$value}}
                                 @endforeach 
                             </p>
-                            
+                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                                @foreach(explode(' ', $post->tag) as $value)
+                                    {{'#'.$value}}
+                                @endforeach 
+                            </p>
                             <div class="d-flex justify-content-between pt-8 align-items-center">
                                 <div class="btn-group">
                                 <a href="/blog/{{ $post->slug }}" class="uppercase btn btn-primary stretched-link">Chi tiết</a>
@@ -70,7 +74,7 @@
                     <div class="row">
                         @foreach($categories as $category)
                         <div class="col">
-                            <a href="" style="margin:10px" class="btn btn-primary stretched-link">{{$category->Title}}</a>
+                            <a href="{{route('category')}}" style="margin:10px" class="btn btn-primary stretched-link">{{$category->Title}}</a>
                         </div>
                         @endforeach
                     </div>
@@ -87,7 +91,7 @@
                     <div class="row">
                         @foreach($tags as $tag)
                         <div class="col">
-                            <a href="" style="margin:10px" class="btn btn-primary stretched-link p-2">{{$tag->Description}}</a>
+                            <a href="{{route('tag')}}" style="margin:10px" class="btn btn-primary stretched-link p-2">{{$tag->Description}}</a>
                         </div>
                         @endforeach
                     </div>

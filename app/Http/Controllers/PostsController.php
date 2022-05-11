@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostsController extends Controller
@@ -32,7 +34,9 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        return view('blog.create')
+            ->with('categories', Category::orderBy('updated_at', 'DESC')->get())
+            ->with('tags', Tag::orderBy('updated_at', 'DESC')->get());
     }
 
     /**
@@ -46,20 +50,25 @@ class PostsController extends Controller
         $request->validate([
             'title' => 'required',
             'cat'=> 'required',
+            'tag'=> 'required',
             'description' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
-
+        Tag::create([
+            'Description'=>$request->input('newtag')
+        ]);
         $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
 
         $request->image->move(public_path('images'), $newImageName);
 
         $input = $request->all();
         $input['cat'] = $request->input('cat');
-        
+        $input['tag'] = $request->input('tag');
+
         Post::create([
             'title' => $request->input('title'),
             'cat'=>implode(' , ', $input['cat']),
+            'tag'=>implode(' , ', $input['tag']).$request->input('newtag'),
             'description' => $request->input('description'),
             'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
             'image_path' => $newImageName,

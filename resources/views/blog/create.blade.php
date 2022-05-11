@@ -28,22 +28,24 @@
         enctype="multipart/form-data">
         @csrf
 
-        <input 
-            type="text"
-            name="title"
-            placeholder="Title..."
-            class="bg-transparent block border-b-2 w-full h-20 text-6xl outline-none">
+        <input    type="text"  name="title"   placeholder="Title..."     class="bg-transparent block border-b-2 w-full h-20 text-6xl outline-none">
             <div class="pt-10">
                 <label><strong>Select Category :</strong></label><br/>
                 <select class="selectpicker" multiple data-live-search="true" name="cat[]">
-                  <option value="php">PHP</option>
-                  <option value="react">React</option>
-                  <option value="jquery">JQuery</option>
-                  <option value="javascript">Javascript</option>
-                  <option value="angular">Angular</option>
-                  <option value="vue">Vue</option>
+                    @foreach ($categories as $item)
+                    <option value="{{$item->Title}}">{{$item->Title}}</option>
+                    @endforeach
                 </select>
+                <div class="pt-10">
+                    <label><strong>Select Tag :</strong></label><br/>
+                    <select class="selectpicker" multiple data-live-search="true" name="tag[]">
+                        @foreach ($tags as $item)
+                        <option value="{{$item->Description}}">{{$item->Description}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
+            <input    type="text"  name="newtag"   placeholder="thêm tag nếu muốn"     class="bg-transparent block border-b-2  outline-none">
         <textarea 
             name="description"
             placeholder="Description..."

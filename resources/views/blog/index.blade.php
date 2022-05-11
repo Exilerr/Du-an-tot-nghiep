@@ -41,6 +41,11 @@
                     {{$value}}
                 @endforeach 
             </p>
+            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                @foreach(explode(' ', $post->tag) as $value)
+                    {{$value}}
+                @endforeach 
+            </p>
             <span class="text-gray-500">
                 By <span class="font-bold italic text-gray-800">{{ $post->user->name }}</span>, Created on {{ date('jS M Y', strtotime($post->updated_at)) }}
             </span>

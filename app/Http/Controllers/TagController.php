@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,11 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $search = Post::select('tag')->get();
+        return view('index')
+        ->with('posts', Post::orderBy('updated_at', 'DESC')->get())
+        ->with('tags', Tag::where('Description','LIKE',"%{$search}%")->get())
+        ->with('categories', Category::orderBy('updated_at', 'DESC')->get());
     }
 
     /**

@@ -25,3 +25,5 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::POST('/comment/store',  [\App\Http\Controllers\CommentController::class, 'store'])->name('comment.add');
 Route::post('/reply/store', [\App\Http\Controllers\CommentController::class,'replyStore'])->name('reply.add');
 Route::get('/search', [\App\Http\Controllers\PagesController::class,'search'])->name('PostSearch');
+Route::get('/category', [\App\Http\Controllers\CategoryController::class,'index'])->name('category');
+Route::get('/tag', [\App\Http\Controllers\TagController::class,'index'])->name('tag');
