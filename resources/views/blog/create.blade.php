@@ -33,7 +33,17 @@
             name="title"
             placeholder="Title..."
             class="bg-transparent block border-b-2 w-full h-20 text-6xl outline-none">
-
+            <div class="pt-10">
+                <label><strong>Select Category :</strong></label><br/>
+                <select class="selectpicker" multiple data-live-search="true" name="cat[]">
+                  <option value="php">PHP</option>
+                  <option value="react">React</option>
+                  <option value="jquery">JQuery</option>
+                  <option value="javascript">Javascript</option>
+                  <option value="angular">Angular</option>
+                  <option value="vue">Vue</option>
+                </select>
+            </div>
         <textarea 
             name="description"
             placeholder="Description..."
@@ -58,5 +68,10 @@
         </button>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').selectpicker();
+    });
+</script>
 
 @endsection

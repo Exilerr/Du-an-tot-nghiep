@@ -15,10 +15,10 @@
             </div>
         </div>
     </div>
-    <form method="GET" action="/search">
+    <form method="GET" CLASS="pt-8" action="/search">
         <div class="row">
             <div class="col-md-6">
-                <input type="search" name="search" class="form-control" placeholder="Search" >
+                <input type="search" name="search" class="form-control" placeholder="Search tên bài viết" >
             </div>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-success">Search</button>
@@ -37,10 +37,16 @@
                             <img src="{{ asset('images/' . $post->image_path) }}" alt="">
                             <div class="card-body">
                             <p class="card-text">{{ $post->title }}</p>
-                            <p class="text-xl text-gray-700  leading-8 font-light">
+                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
                                 {{ $post->description }}
                             </p>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                                @foreach(explode(' ', $post->cat) as $value)
+                                    {{$value}}
+                                @endforeach 
+                            </p>
+                            
+                            <div class="d-flex justify-content-between pt-8 align-items-center">
                                 <div class="btn-group">
                                 <a href="/blog/{{ $post->slug }}" class="uppercase btn btn-primary stretched-link">Chi tiết</a>
                                 </div>
@@ -57,36 +63,19 @@
             {{-- Phần bên phải --}}
             <div class="col-3">
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                    <div class="d-flex align-items-center flex-shrink-0 p-3 text-decoration-none border-bottom">
-                    <svg class="bi me-2" width="30" height="24"></svg>
-                    <span class="fs-5 fw-semibold">Bài viết nổi bật</span></div>
-                    <div class="list-group list-group-flush border-bottom scrollarea">
-                    @foreach ($posts as $post)
-                    <a href="/blog/{{ $post->slug }}" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">{{ $post->title }}</strong>
-                        </div>
-                        <div class="col-10 mb-1 small">{{ $post->description }}</div>
-                    </a>
-                    @endforeach
-                    </div>
-                </div>
-                
-                <hr>
-
-                {{-- <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
                     <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
                     <span class="fs-5 fw-semibold">Category</span>
                     </a>
                     <div class="row">
                         @foreach($categories as $category)
-                        <div class="col-4">
+                        <div class="col">
                             <a href="" style="margin:10px" class="btn btn-primary stretched-link">{{$category->Title}}</a>
                         </div>
+                        @endforeach
                     </div>
                 </div>
-                @endforeach
+               
                 <hr>
 
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
@@ -97,13 +86,13 @@
                    
                     <div class="row">
                         @foreach($tags as $tag)
-                        <div class="col-4">
+                        <div class="col">
                             <a href="" style="margin:10px" class="btn btn-primary stretched-link p-2">{{$tag->Description}}</a>
                         </div>
-                       
+                        @endforeach
                     </div>
                 </div>
-                @endforeach --}}
+                
             </div>
         </div>
 </div>

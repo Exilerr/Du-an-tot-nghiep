@@ -20,8 +20,11 @@ class PagesController extends Controller
     public function search(Request $request)
     {
       $search = $request->get('search');
-      $posts = Post::where('title', 'like', '%'.$search.'%')->paginate(5);
-      return view('index',['posts' => $posts]); 
+      return view('index')
+        ->with('posts', Post::where('title', 'like', '%'.$search.'%')->paginate(5))
+        ->with('tags', Tag::orderBy('updated_at', 'DESC')->get())
+        ->with('categories', Category::orderBy('updated_at', 'DESC')->get());
+      
      
     }
 }

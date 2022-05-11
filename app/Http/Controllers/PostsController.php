@@ -45,6 +45,7 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'cat'=> 'required',
             'description' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
@@ -53,8 +54,12 @@ class PostsController extends Controller
 
         $request->image->move(public_path('images'), $newImageName);
 
+        $input = $request->all();
+        $input['cat'] = $request->input('cat');
+        
         Post::create([
             'title' => $request->input('title'),
+            'cat'=>implode(' , ', $input['cat']),
             'description' => $request->input('description'),
             'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
             'image_path' => $newImageName,
