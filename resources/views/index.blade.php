@@ -47,7 +47,7 @@
                             </p>
                             <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
                                 @foreach(explode(' ', $post->tag) as $value)
-                                    {{'#'.$value}}
+                                    {{$value}}
                                 @endforeach 
                             </p>
                             <div class="d-flex justify-content-between pt-8 align-items-center">

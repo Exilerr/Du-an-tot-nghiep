@@ -54,21 +54,28 @@ class PostsController extends Controller
             'description' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
-        Tag::create([
-            'Description'=>$request->input('newtag')
-        ]);
+ 
         $newImageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
 
         $request->image->move(public_path('images'), $newImageName);
 
         $input = $request->all();
         $input['cat'] = $request->input('cat');
-        $input['tag'] = $request->input('tag');
+        // $input['tag'] = $request->input('tag');
+
+        if ($request->input('newtag') != null) {
+            Tag::create([
+                'Description'=>$request->input('newtag')
+            ]);
+            $input['tag'] = implode(' , ',$request->input('tag')).$request->input('newtag');
+        }else {
+            $input['tag'] = implode(' , ',$request->input('tag'));
+        }
 
         Post::create([
             'title' => $request->input('title'),
             'cat'=>implode(' , ', $input['cat']),
-            'tag'=>implode(' , ', $input['tag']).$request->input('newtag'),
+            'tag'=>$input['tag'],
             'description' => $request->input('description'),
             'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
             'image_path' => $newImageName,
