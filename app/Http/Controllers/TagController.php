@@ -14,12 +14,12 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        $search = Post::select('tag')->get();
+        $input = $request->input('tag');
         return view('index')
-        ->with('posts', Post::orderBy('updated_at', 'DESC')->get())
-        ->with('tags', Tag::where('Description','LIKE',"%{$search}%")->get())
+        ->with('posts', Post::orderBy('updated_at', 'DESC')->where('tag','LIKE',"%{$input}%")->get())
+        ->with('tags', Tag::orderBy('updated_at', 'DESC')->get())
         ->with('categories', Category::orderBy('updated_at', 'DESC')->get());
     }
 

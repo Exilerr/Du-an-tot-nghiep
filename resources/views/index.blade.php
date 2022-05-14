@@ -36,21 +36,21 @@
                         <div class="card shadow-sm">
                             <img src="{{ asset('images/' . $post->image_path) }}" alt="">
                             <div class="card-body">
-                            <p class="card-text">{{ $post->title }}</p>
-                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                            <p class="text-xl text-Black-700 leading-8 font-both">{{ $post->title }}</p>
+                            <p class="text-xl text-red-700 pt-4 leading-8 font-both">
                                 {{ $post->description }}
                             </p>
-                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                            <p class="text-xl text-yellow-700 pt-4 leading-8 font-both">
                                 @foreach(explode(' ', $post->cat) as $value)
                                     {{$value}}
                                 @endforeach 
                             </p>
-                            <p class="text-xl text-gray-700 pt-8 leading-8 font-light">
+                            <p class="text-xl text-blue-700 pt-4 leading-8 font-both">
                                 @foreach(explode(' ', $post->tag) as $value)
                                     {{$value}}
                                 @endforeach 
                             </p>
-                            <div class="d-flex justify-content-between pt-8 align-items-center">
+                            <div class="d-flex justify-content-between pt-4  align-items-center">
                                 <div class="btn-group">
                                 <a href="/blog/{{ $post->slug }}" class="uppercase btn btn-primary stretched-link">Chi tiết</a>
                                 </div>
@@ -67,14 +67,16 @@
             {{-- Phần bên phải --}}
             <div class="col-3">
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                    <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                    <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
                     <span class="fs-5 fw-semibold">Category</span>
-                    </a>
+                    </div>
                     <div class="row">
                         @foreach($categories as $category)
                         <div class="col">
-                            <a href="{{route('category')}}" style="margin:10px" class="btn btn-primary stretched-link">{{$category->Title}}</a>
+                            <form method="GET" CLASS="pt-8" action="/category">
+                                <input type="submit" value={{$category->Title}} name="category" class="form-control" placeholder="{{$category->Title}}" >
+                            </form>
                         </div>
                         @endforeach
                     </div>
@@ -83,15 +85,17 @@
                 <hr>
 
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                    <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                    <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-                    <span class="fs-5 fw-semibold">Tag</span>
-                    </a>
+                    <span>Tag</span>
+                    </div>
                    
                     <div class="row">
                         @foreach($tags as $tag)
                         <div class="col">
-                            <a href="{{route('tag')}}" style="margin:10px" class="btn btn-primary stretched-link p-2">{{$tag->Description}}</a>
+                            <form method="GET" CLASS="pt-8" action="/tag">
+                                <input type="submit" value={{$tag->Description}} name="tag" class="form-control" placeholder="{{$tag->Title}}" >
+                            </form>
                         </div>
                         @endforeach
                     </div>

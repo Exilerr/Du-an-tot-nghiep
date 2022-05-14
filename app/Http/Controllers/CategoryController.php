@@ -14,13 +14,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $search = Post::select('cat')->get();
+        $input = $request->input('category');
+        // dd($input);
         return view('index')
-        ->with('posts', Post::orderBy('updated_at', 'DESC')->get())
+        ->with('posts', Post::where('cat','LIKE',"%{$input}%")->get())
         ->with('tags', Tag::orderBy('updated_at', 'DESC')->get())
-        ->with('categories', Category::where('slug','LIKE',"%{$search}%")->get());
+        ->with('categories', Category::orderBy('updated_at', 'DESC')->get());
     }
 
     /**
